@@ -1,4 +1,6 @@
 using HotelsApp.Data;
+using HotelsApp.Repositories;
+using HotelsApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,14 @@ namespace HotelsApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+
+            services.AddTransient<CityRepo>();
+            services.AddTransient<CleanerRepo>();
+            services.AddTransient<HotelRepo>();
+            services.AddTransient<RoomRepo>();
+
+            services.AddTransient<CityService>();
+
             services.AddControllersWithViews();
         }
 

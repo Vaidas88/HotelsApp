@@ -17,7 +17,9 @@ namespace HotelsApp.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.Entity<City>()
+                .HasIndex(city => city.Name)
+                .IsUnique();
         }
     }
 }

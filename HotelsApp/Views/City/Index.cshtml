@@ -1,0 +1,25 @@
+﻿@using HotelsApp.Dtos
+@model List<CityDto>
+
+<table class="table table-bordered col-5">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var city in @Model)
+        {
+            <tr>
+                <td>@city.Id</td>
+                <td>@city.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "City", new {id = city.Id}, new {@class = "btn btn-success"})
+                    @Html.ActionLink("Delete", "Delete", "City", new {id = city.Id}, new {@class = "btn btn-danger"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

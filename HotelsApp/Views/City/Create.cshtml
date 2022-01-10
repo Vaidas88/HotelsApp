@@ -1,0 +1,21 @@
+﻿@using HotelsApp.Dtos
+@model CityDto
+
+@if (@ViewBag.Error != "")
+{
+    <div class="p-3 mb-2 bg-danger text-white">
+        <h3>@ViewBag.Error</h3>
+    </div>
+}
+
+@using (Html.BeginForm("Create", "City", FormMethod.Post))
+{
+    <div class="mb-3 col-5">
+        @Html.LabelFor(city => city.Name, new {@class = "form-label"})
+        @Html.TextBoxFor(city => city.Name, new {@class = "form-control"})
+        @Html.ValidationMessageFor(city => city.Name)
+    </div>
+    <div class="mb-3 col-5">
+        <input type="submit" class="btn btn-primary" value="Create" />
+    </div>
+}

@@ -16,22 +16,27 @@ namespace HotelsApp.Repositories
             _dbSet = _context.Set<T>();
         }
 
-        public List<T> GetAll()
+        public virtual List<T> GetAll()
         {
             return _dbSet.ToList();
         }
 
-        public void Add(T entity)
+        public virtual T GetSingle(int id)
+        {
+            return _dbSet.Find(id);
+        }
+
+        public virtual void Add(T entity)
         {
             _dbSet.Add(entity);
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
             _dbSet.Update(entity);
         }
 
-        public void SaveChanges()
+        public virtual void SaveChanges()
         {
             _context.SaveChanges();
         }
