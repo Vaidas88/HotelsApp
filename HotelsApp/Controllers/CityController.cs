@@ -1,6 +1,5 @@
 ﻿using HotelsApp.Dtos;
 using HotelsApp.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -21,15 +20,11 @@ namespace HotelsApp.Controllers
             return View(_cityService.GetAll());
         }
 
-        // GET: CityController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: CityController/Create
         public ActionResult Create()
         {
+            ViewBag.Error = "";
+
             var city = new CityDto();
 
             return View(city);
@@ -68,43 +63,43 @@ namespace HotelsApp.Controllers
         // GET: CityController/Edit/5
         public ActionResult Edit(int id)
         {
+            ViewBag.Error = "";
+
             return View(_cityService.GetSingle(id));
         }
 
         // POST: CityController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(CityDto city)
         {
+            ViewBag.Error = "";
+
+            if (!ModelState.IsValid)
+            {
+                return View(_cityService.GetSingle(city.Id));
+            }
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                _cityService.Edit(city);
+
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+
+                return View(_cityService.GetSingle(city.Id));
             }
         }
 
         // GET: CityController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
+            _cityService.Delete(id);
 
-        // POST: CityController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }

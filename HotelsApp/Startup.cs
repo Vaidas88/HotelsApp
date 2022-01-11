@@ -34,7 +34,9 @@ namespace HotelsApp
             services.AddTransient<HotelRepo>();
             services.AddTransient<RoomRepo>();
 
+            services.AddTransient<MapService>();
             services.AddTransient<CityService>();
+            services.AddTransient<HotelService>();
 
             services.AddControllersWithViews();
         }

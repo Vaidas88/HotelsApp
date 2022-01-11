@@ -1,0 +1,34 @@
+﻿@using HotelsApp.Dtos
+@model List<HotelDto>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Max Rooms</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var hotel in @Model)
+        {
+            <tr>
+                <td>@hotel.Id</td>
+                <td>@hotel.Name</td>
+                <td>@hotel.City</td>
+                <td>@hotel.Address</td>
+                <td>@hotel.MaxRooms</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Hotel", new {id = hotel.Id}, new {@class = "btn btn-primary"})
+                    @Html.ActionLink("Edit", "Edit", "Hotel", new {id = hotel.Id}, new {@class = "btn btn-success"})
+                    @Html.ActionLink("Delete", "Delete", "Hotel", new {id = hotel.Id}, new {@class = "btn btn-danger"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Create", "Create", "City", new {}, new {@class = "btn btn-primary"})

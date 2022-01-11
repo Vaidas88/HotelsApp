@@ -50,5 +50,25 @@ namespace HotelsApp.Services
 
             _cityRepo.SaveChanges();
         }
+
+        public void Edit(CityDto city)
+        {
+            _cityRepo.Update(new City()
+            {
+                Id = city.Id,
+                Name = city.Name
+            });
+
+            _cityRepo.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            City city = _cityRepo.GetSingle(id);
+
+            _cityRepo.Delete(city);
+
+            _cityRepo.SaveChanges();
+        }
     }
 }

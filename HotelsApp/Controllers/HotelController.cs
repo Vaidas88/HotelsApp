@@ -1,14 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HotelsApp.Dtos;
+using HotelsApp.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace HotelsApp.Controllers
 {
     public class HotelController : Controller
     {
+        private readonly HotelService _hotelService;
+
+        public HotelController(HotelService hotelService)
+        {
+            _hotelService = hotelService;
+        }
+
         // GET: HotelController
         public ActionResult Index()
         {
-            return View();
+            return View(_hotelService.GetAll());
         }
 
         // GET: HotelController/Details/5
@@ -20,21 +30,40 @@ namespace HotelsApp.Controllers
         // GET: HotelController/Create
         public ActionResult Create()
         {
-            return View();
+            ViewBag.Error = "";
+
+            var hotel = new HotelDto();
+
+            return View(hotel);
         }
 
         // POST: HotelController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(HotelDto hotel)
         {
+            ViewBag.Error = "";
+
+            if (!ModelState.IsValid)
+            {
+                hotel = new HotelDto();
+
+                return View(hotel);
+            }
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                _hotelService.Create(hotel);
+
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+
+                hotel = new HotelDto();
+
+                return View(hotel);
             }
         }
 

@@ -36,6 +36,11 @@ namespace HotelsApp.Repositories
             _dbSet.Update(entity);
         }
 
+        public virtual void Delete(T entity)
+        {
+            _dbSet.Remove(entity);
+        }
+
         public virtual void SaveChanges()
         {
             _context.SaveChanges();
