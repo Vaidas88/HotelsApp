@@ -1,0 +1,55 @@
+﻿@model Hotel
+
+<div>
+    <h2>@Model.Name</h2>
+    <p class="mb-3">@Model.Address</p>
+</div>
+
+<div>
+    <h3>List of rooms for this hotel:</h3>
+</div>
+
+<div class="row">
+    <div class="col-6">
+        <h4 class="card-title">Free rooms:</h4>
+        <table class="table table-bordered">
+            <tr>
+                <th>Room #</th>
+                <th>Room floor</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var room in @Model.Rooms)
+            {
+                @if (!room.IsBooked)
+                {
+                    <tr>
+                        <td>@room.RoomNumber</td>
+                        <td>@room.Floor</td>
+                        <td>@Html.ActionLink("Book", "Book", "Room", new { roomId = @room.Id, hotelId = @Model.Id }, new {@class = "btn btn-danger"})</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+    <div class="col-6">
+        <h4 class="card-title">Booked rooms:</h4>
+        <table class="table table-bordered">
+            <tr>
+                <th>Room #</th>
+                <th>Room floor</th>
+                <th>Actions</th>
+            </tr>
+            @foreach (var room in @Model.Rooms)
+            {
+                @if (room.IsBooked)
+                {
+                    <tr>
+                        <td>@room.RoomNumber</td>
+                        <td>@room.Floor</td>
+                        <td>@Html.ActionLink("Book", "Book", "Hotel", new { hotelId = @Model.Id, roomId = @room.Id }, new {@class = "btn btn-danger disabled"})</td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+</div>

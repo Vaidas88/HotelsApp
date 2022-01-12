@@ -1,0 +1,35 @@
+﻿@model List<Room>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Room #</th>
+            <th>Floor</th>
+            <th>Hotel name</th>
+            <th>Has cleaners?</th>
+            <th>Is Booked?</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var room in @Model)
+        {
+            <tr>
+                <td>@room.Id</td>
+                <td>@room.RoomNumber</td>
+                <td>@room.Floor</td>
+                <td>@room.Hotel.Name</td>
+                <td>// TODO //</td>
+                <td>@room.IsBooked</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Room", new {id = room.Id}, new {@class = "btn btn-primary"})
+                    @Html.ActionLink("Edit", "Edit", "Room", new {id = room.Id}, new {@class = "btn btn-success"})
+                    @Html.ActionLink("Delete", "Delete", "Room", new {id = room.Id}, new {@class = "btn btn-danger"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Create", "Create", "Room", new {}, new {@class = "btn btn-primary"})

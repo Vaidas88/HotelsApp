@@ -1,5 +1,4 @@
-﻿@using HotelsApp.Dtos
-@model List<HotelDto>
+﻿@model List<Hotel>
 
 <table class="table table-bordered">
     <thead>
@@ -18,7 +17,7 @@
             <tr>
                 <td>@hotel.Id</td>
                 <td>@hotel.Name</td>
-                <td>@hotel.City</td>
+                <td>@hotel.City.Name</td>
                 <td>@hotel.Address</td>
                 <td>@hotel.MaxRooms</td>
                 <td>
@@ -31,4 +30,4 @@
     </tbody>
 </table>
 
-@Html.ActionLink("Create", "Create", "City", new {}, new {@class = "btn btn-primary"})
+@Html.ActionLink("Create", "Create", "Hotel", new {}, new {@class = "btn btn-primary"})

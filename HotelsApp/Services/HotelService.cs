@@ -7,28 +7,26 @@ namespace HotelsApp.Services
 {
     public class HotelService
     {
-        private readonly MapService _mapService;
         private readonly HotelRepo _hotelRepo;
 
-        public HotelService(HotelRepo hotelRepo, MapService mapService)
+        public HotelService(HotelRepo hotelRepo)
         {
-            _mapService = mapService;
             _hotelRepo = hotelRepo;
         }
 
-        public List<HotelDto> GetAll()
+        public List<Hotel> GetAll()
         {
-            return _mapService.HotelsToDto(_hotelRepo.GetAll());
+            return _hotelRepo.GetAll();
         }
 
-        public HotelDto GetSingle(int id)
+        public Hotel GetSingle(int id)
         {
-            return _mapService.HotelToDto(_hotelRepo.GetSingle(id));
+            return _hotelRepo.GetSingle(id);
         }
 
-        public void Create(HotelDto hotel)
+        public void Create(Hotel hotel)
         {
-            _hotelRepo.Add(_mapService.DtoToHotel(hotel));
+            _hotelRepo.Add(hotel);
 
             _hotelRepo.SaveChanges();
         }

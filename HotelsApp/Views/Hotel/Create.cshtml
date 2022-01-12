@@ -14,10 +14,21 @@
         @Html.LabelFor(hotel => hotel.Name, new {@class = "form-label"})
         @Html.TextBoxFor(hotel => hotel.Name, new {@class = "form-control"})
         @Html.ValidationMessageFor(hotel => hotel.Name)
-
-        @Html.LabelFor(hotel => hotel.City, new {@class = "form-label"})
-        @Html.DropDownListFor(hotel => hotel.City, new SelectList(@Model.AvailableCities,"Id", "Name"), new {@class = "form-control"})
-        @Html.ValidationMessageFor(hotel => hotel.Name)
+    </div>
+    <div class="mb-3 col-5">
+        @Html.LabelFor(hotel => hotel.City.Id, new {@class = "form-label"})
+        @Html.DropDownListFor(hotel => hotel.City.Id, new SelectList(@Model.AvailableCities,"Id", "Name"), new {@class = "form-control"})
+        @Html.ValidationMessageFor(hotel => hotel.City)
+    </div>
+    <div class="mb-3 col-5">
+        @Html.LabelFor(hotel => hotel.Address, new {@class = "form-label"})
+        @Html.TextBoxFor(hotel => hotel.Address, new {@class = "form-control"})
+        @Html.ValidationMessageFor(hotel => hotel.Address)
+    </div>
+    <div class="mb-3 col-5">
+        @Html.LabelFor(hotel => hotel.MaxRooms, new {@class = "form-label"})
+        @Html.TextBoxFor(hotel => hotel.MaxRooms, new {@class = "form-control", @type = "number"})
+        @Html.ValidationMessageFor(hotel => hotel.MaxRooms)
     </div>
     <div class="mb-3 col-5">
         <input type="submit" class="btn btn-primary" value="Create" />

@@ -1,4 +1,5 @@
 ﻿using HotelsApp.Dtos;
+using HotelsApp.Models;
 using HotelsApp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,10 +10,12 @@ namespace HotelsApp.Controllers
     public class HotelController : Controller
     {
         private readonly HotelService _hotelService;
+        private readonly CityService _cityService;
 
-        public HotelController(HotelService hotelService)
+        public HotelController(HotelService hotelService, CityService cityService)
         {
             _hotelService = hotelService;
+            _cityService = cityService;
         }
 
         // GET: HotelController
@@ -24,7 +27,8 @@ namespace HotelsApp.Controllers
         // GET: HotelController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Hotel hotel = _hotelService.GetSingle(id);
+            return View(hotel);
         }
 
         // GET: HotelController/Create
@@ -33,6 +37,7 @@ namespace HotelsApp.Controllers
             ViewBag.Error = "";
 
             var hotel = new HotelDto();
+            hotel.AvailableCities = _cityService.GetAll();
 
             return View(hotel);
         }
@@ -40,13 +45,15 @@ namespace HotelsApp.Controllers
         // POST: HotelController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(HotelDto hotel)
+        public ActionResult Create(Hotel hotel)
         {
             ViewBag.Error = "";
+            HotelDto hotelDto;
 
             if (!ModelState.IsValid)
             {
-                hotel = new HotelDto();
+                hotelDto = new HotelDto();
+                hotelDto.AvailableCities = _cityService.GetAll();
 
                 return View(hotel);
             }
@@ -61,7 +68,8 @@ namespace HotelsApp.Controllers
             {
                 ViewBag.Error = e.Message;
 
-                hotel = new HotelDto();
+                hotelDto = new HotelDto();
+                hotelDto.AvailableCities = _cityService.GetAll();
 
                 return View(hotel);
             }

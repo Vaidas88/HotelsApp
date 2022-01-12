@@ -1,5 +1,8 @@
 ﻿using HotelsApp.Data;
 using HotelsApp.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace HotelsApp.Repositories
 {
@@ -7,6 +10,11 @@ namespace HotelsApp.Repositories
     {
         public RoomRepo(DataContext context) : base(context)
         {
+        }
+
+        public override List<Room> GetAll()
+        {
+            return _dbSet.Include(r => r.Hotel).ToList();
         }
     }
 }

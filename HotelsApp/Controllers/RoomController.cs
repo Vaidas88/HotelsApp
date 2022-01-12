@@ -1,14 +1,29 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using HotelsApp.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelsApp.Controllers
 {
     public class RoomController : Controller
     {
+        private readonly RoomService _roomService;
+
+        public RoomController(RoomService roomService)
+        {
+            _roomService = roomService;
+        }
+
         // GET: RoomController
         public ActionResult Index()
         {
-            return View();
+            return View(_roomService.GetAll());
+        }
+
+        public ActionResult Book(int roomId, int hotelId)
+        {
+            _roomService.Book(roomId);
+
+            return RedirectToAction("Index", "Hotel", new { id = hotelId });
         }
 
         // GET: RoomController/Details/5

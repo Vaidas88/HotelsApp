@@ -16,5 +16,13 @@ namespace HotelsApp.Repositories
         {
             return _dbSet.Include(c => c.City).Include(r => r.Rooms).ToList();
         }
+
+        public override Hotel GetSingle(int id)
+        {
+            return _dbSet
+                    .Include(h => h.Rooms)
+                    .Include(h => h.City)
+                    .SingleOrDefault(h => h.Id == id);
+        }
     }
 }
