@@ -14,7 +14,7 @@ namespace HotelsApp.Repositories
 
         public override List<Room> GetAll()
         {
-            return _dbSet.Include(r => r.Hotel).ToList();
+            return _dbSet.Include(r => r.Hotel).Include(r => r.Cleaners).ToList();
         }
     }
 }

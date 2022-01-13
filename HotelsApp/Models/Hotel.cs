@@ -6,6 +6,8 @@ namespace HotelsApp.Models
     {
         public City City { get; set; }
 
+        public int CityId { get; set; }
+
         public string Address { get; set; }
 
         public int MaxRooms { get; set; }

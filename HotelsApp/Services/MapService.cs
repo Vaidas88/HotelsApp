@@ -24,8 +24,8 @@ namespace HotelsApp.Services
                 Id = room.Id,
                 RoomNumber = room.RoomNumber,
                 Floor = room.Floor,
-                Hotel = HotelToDto(room.Hotel),
-                Cleaners = CleanersToDto(room.Cleaners),
+                Hotel = room.Hotel,
+                Cleaners = room.Cleaners,
                 IsBooked = room.IsBooked
             };
         }
@@ -37,9 +37,10 @@ namespace HotelsApp.Services
                 Id = hotel.Id,
                 Name = hotel.Name,
                 Address = hotel.Address,
-                City = CityToDto(hotel.City),
+                City = hotel.City,
+                CityId = hotel.CityId,
                 MaxRooms = hotel.MaxRooms,
-                Rooms = RoomsToDto(hotel.Rooms)
+                Rooms = hotel.Rooms
             };
         }
 
@@ -50,8 +51,8 @@ namespace HotelsApp.Services
                 Id = cleaner.Id,
                 FirstName = cleaner.FirstName,
                 LastName = cleaner.LastName,
-                City = CityToDto(cleaner.City),
-                Rooms = RoomsToDto(cleaner.Rooms)
+                City = cleaner.City,
+                Rooms = cleaner.Rooms
             };
         }
 
@@ -100,8 +101,8 @@ namespace HotelsApp.Services
                 Id = room.Id,
                 RoomNumber = room.RoomNumber,
                 Floor = room.Floor,
-                Hotel = DtoToHotel(room.Hotel),
-                Cleaners = DtoToCleaners(room.Cleaners),
+                Hotel = room.Hotel,
+                Cleaners = room.Cleaners,
                 IsBooked = room.IsBooked
             };
         }
@@ -113,9 +114,9 @@ namespace HotelsApp.Services
                 Id = hotel.Id,
                 Name = hotel.Name,
                 Address = hotel.Address,
-                City = DtoToCity(hotel.City),
+                CityId = hotel.City.Id,
                 MaxRooms = hotel.MaxRooms,
-                Rooms = DtoToRooms(hotel.Rooms)
+                Rooms = hotel.Rooms
             };
         }
 
@@ -126,8 +127,8 @@ namespace HotelsApp.Services
                 Id = cleaner.Id,
                 FirstName = cleaner.FirstName,
                 LastName = cleaner.LastName,
-                City = DtoToCity(cleaner.City),
-                Rooms = DtoToRooms(cleaner.Rooms)
+                City = cleaner.City,
+                Rooms = cleaner.Rooms
             };
         }
 

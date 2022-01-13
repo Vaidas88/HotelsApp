@@ -97,9 +97,17 @@ namespace HotelsApp.Controllers
         // GET: CityController/Delete/5
         public ActionResult Delete(int id)
         {
-            _cityService.Delete(id);
+            try
+            {
+                _cityService.Delete(id);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
+            
         }
     }
 }

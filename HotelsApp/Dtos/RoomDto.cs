@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HotelsApp.Models;
+using System.Collections.Generic;
 
 namespace HotelsApp.Dtos
 {
@@ -8,9 +9,9 @@ namespace HotelsApp.Dtos
 
         public int Floor { get; set; }
 
-        public HotelDto Hotel { get; set; }
+        public Hotel Hotel { get; set; }
 
-        public List<CleanerDto> Cleaners { get; set; }
+        public List<Cleaner> Cleaners { get; set; }
 
         public bool IsBooked { get; set; }
     }

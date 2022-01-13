@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using HotelsApp.Models;
+using System.Collections.Generic;
 
 namespace HotelsApp.Dtos
 {
@@ -8,8 +9,8 @@ namespace HotelsApp.Dtos
 
         public string LastName { get; set; }
 
-        public CityDto City { get; set; }
+        public City City { get; set; }
 
-        public List<RoomDto> Rooms { get; set; }
+        public List<Room> Rooms { get; set; }
     }
 }

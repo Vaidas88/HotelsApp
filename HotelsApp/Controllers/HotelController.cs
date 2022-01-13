@@ -27,7 +27,8 @@ namespace HotelsApp.Controllers
         // GET: HotelController/Details/5
         public ActionResult Details(int id)
         {
-            Hotel hotel = _hotelService.GetSingle(id);
+            HotelDto hotel = _hotelService.GetSingle(id);
+
             return View(hotel);
         }
 
@@ -45,15 +46,14 @@ namespace HotelsApp.Controllers
         // POST: HotelController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Hotel hotel)
+        public ActionResult Create(HotelDto hotel)
         {
             ViewBag.Error = "";
-            HotelDto hotelDto;
 
             if (!ModelState.IsValid)
             {
-                hotelDto = new HotelDto();
-                hotelDto.AvailableCities = _cityService.GetAll();
+                hotel = new HotelDto();
+                hotel.AvailableCities = _cityService.GetAll();
 
                 return View(hotel);
             }
@@ -68,8 +68,8 @@ namespace HotelsApp.Controllers
             {
                 ViewBag.Error = e.Message;
 
-                hotelDto = new HotelDto();
-                hotelDto.AvailableCities = _cityService.GetAll();
+                hotel = new HotelDto();
+                hotel.AvailableCities = _cityService.GetAll();
 
                 return View(hotel);
             }
@@ -78,43 +78,55 @@ namespace HotelsApp.Controllers
         // GET: HotelController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewBag.Error = "";
+
+            var hotel = _hotelService.GetSingle(id);
+
+            hotel.AvailableCities = _cityService.GetAll();
+
+            return View(hotel);
         }
 
         // POST: HotelController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(HotelDto hotel)
         {
+            ViewBag.Error = "";
+
+            if (!ModelState.IsValid)
+            {
+                hotel = _hotelService.GetSingle(hotel.Id);
+
+                hotel.AvailableCities = _cityService.GetAll();
+
+                return View(hotel);
+            }
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                _hotelService.Edit(hotel);
+
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+
+                hotel = _hotelService.GetSingle(hotel.Id);
+
+                hotel.AvailableCities = _cityService.GetAll();
+
+                return View(hotel);
             }
         }
 
         // GET: HotelController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
+            _hotelService.Delete(id);
 
-        // POST: HotelController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return RedirectToAction("Index");
         }
     }
 }

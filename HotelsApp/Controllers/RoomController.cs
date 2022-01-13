@@ -1,4 +1,5 @@
-﻿using HotelsApp.Services;
+﻿using HotelsApp.Dtos;
+using HotelsApp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,12 @@ namespace HotelsApp.Controllers
         // GET: RoomController/Create
         public ActionResult Create()
         {
-            return View();
+            ViewBag.Error = "";
+
+            var room = new RoomDto();
+            // implement // room.Cleaners = _cleanerService.GetAvailable();
+
+            return View(room);
         }
 
         // POST: RoomController/Create

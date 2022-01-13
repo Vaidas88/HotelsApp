@@ -20,10 +20,10 @@
                 <td>@room.RoomNumber</td>
                 <td>@room.Floor</td>
                 <td>@room.Hotel.Name</td>
-                <td>// TODO //</td>
+                <td>@room.Cleaners.Count</td>
                 <td>@room.IsBooked</td>
                 <td>
-                    @Html.ActionLink("Details", "Details", "Room", new {id = room.Id}, new {@class = "btn btn-primary"})
+                    @*@Html.ActionLink("Details", "Details", "Room", new {id = room.Id}, new {@class = "btn btn-primary"})*@
                     @Html.ActionLink("Edit", "Edit", "Room", new {id = room.Id}, new {@class = "btn btn-success"})
                     @Html.ActionLink("Delete", "Delete", "Room", new {id = room.Id}, new {@class = "btn btn-danger"})
                 </td>

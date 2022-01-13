@@ -7,26 +7,50 @@ namespace HotelsApp.Services
 {
     public class HotelService
     {
+        private readonly MapService _mapService;
+        private readonly CityService _cityService;
         private readonly HotelRepo _hotelRepo;
 
-        public HotelService(HotelRepo hotelRepo)
+        public HotelService(HotelRepo hotelRepo, CityService cityService, MapService mapService)
         {
+            _mapService = mapService;
+            _cityService = cityService;
             _hotelRepo = hotelRepo;
         }
 
-        public List<Hotel> GetAll()
+        public List<HotelDto> GetAll()
         {
-            return _hotelRepo.GetAll();
+            return _mapService.HotelsToDto(_hotelRepo.GetAll());
         }
 
-        public Hotel GetSingle(int id)
+        public HotelDto GetSingle(int id)
         {
-            return _hotelRepo.GetSingle(id);
+            return _mapService.HotelToDto(_hotelRepo.GetSingle(id));
         }
 
-        public void Create(Hotel hotel)
+        public void Create(HotelDto hotelDto)
         {
+            var hotel = _mapService.DtoToHotel(hotelDto);
+
             _hotelRepo.Add(hotel);
+
+            _hotelRepo.SaveChanges();
+        }
+
+        public void Edit(HotelDto hotelDto)
+        {
+            var hotel = _mapService.DtoToHotel(hotelDto);
+
+            _hotelRepo.Update(hotel);
+
+            _hotelRepo.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var hotel = _hotelRepo.GetSingle(id);
+
+            _hotelRepo.Delete(hotel);
 
             _hotelRepo.SaveChanges();
         }
