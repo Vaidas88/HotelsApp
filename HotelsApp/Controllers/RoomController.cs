@@ -2,16 +2,19 @@
 using HotelsApp.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace HotelsApp.Controllers
 {
     public class RoomController : Controller
     {
         private readonly RoomService _roomService;
+        private readonly HotelService _hotelService;
 
-        public RoomController(RoomService roomService)
+        public RoomController(RoomService roomService, HotelService hotelService)
         {
             _roomService = roomService;
+            _hotelService = hotelService;
         }
 
         // GET: RoomController
@@ -39,7 +42,8 @@ namespace HotelsApp.Controllers
             ViewBag.Error = "";
 
             var room = new RoomDto();
-            // implement // room.Cleaners = _cleanerService.GetAvailable();
+
+            room.AvailableHotels = _hotelService.GetAvailable();
 
             return View(room);
         }
@@ -47,36 +51,78 @@ namespace HotelsApp.Controllers
         // POST: RoomController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(RoomDto room)
         {
+            ViewBag.Error = "";
+
+            if (!ModelState.IsValid)
+            {
+                room = new RoomDto();
+                room.AvailableHotels = _hotelService.GetAvailable();
+
+                return View(room);
+            }
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                _roomService.Create(room);
+
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+
+                room = new RoomDto();
+                room.AvailableHotels = _hotelService.GetAvailable();
+
+                return View(room);
             }
         }
 
         // GET: RoomController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ViewBag.Error = "";
+
+            var room = _roomService.GetSingle(id);
+
+            room.AvailableHotels = _hotelService.GetAvailable();
+
+            return View(room);
         }
 
         // POST: RoomController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(RoomDto room)
         {
+            ViewBag.Error = "";
+
+            if (!ModelState.IsValid)
+            {
+                room = _roomService.GetSingle(room.Id);
+
+                room.AvailableHotels = _hotelService.GetAvailable();
+
+                return View(room);
+            }
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                _roomService.Edit(room);
+
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                ViewBag.Error = e.Message;
+
+                room = _roomService.GetSingle(room.Id);
+
+                room.AvailableHotels = _hotelService.GetAvailable();
+
+                return View(room);
             }
         }
 

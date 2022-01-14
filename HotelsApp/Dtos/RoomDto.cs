@@ -14,5 +14,7 @@ namespace HotelsApp.Dtos
         public List<Cleaner> Cleaners { get; set; }
 
         public bool IsBooked { get; set; }
+
+        public List<HotelDto> AvailableHotels { get; set; }
     }
 }

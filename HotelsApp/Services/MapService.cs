@@ -101,7 +101,7 @@ namespace HotelsApp.Services
                 Id = room.Id,
                 RoomNumber = room.RoomNumber,
                 Floor = room.Floor,
-                Hotel = room.Hotel,
+                HotelId = room.Hotel.Id,
                 Cleaners = room.Cleaners,
                 IsBooked = room.IsBooked
             };

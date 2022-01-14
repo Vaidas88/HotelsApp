@@ -23,6 +23,11 @@ namespace HotelsApp.Services
             return _mapService.HotelsToDto(_hotelRepo.GetAll());
         }
 
+        public List<HotelDto> GetAvailable()
+        {
+            return _mapService.HotelsToDto(_hotelRepo.GetAvailable());
+        }
+
         public HotelDto GetSingle(int id)
         {
             return _mapService.HotelToDto(_hotelRepo.GetSingle(id));

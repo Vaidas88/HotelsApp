@@ -8,10 +8,12 @@ namespace HotelsApp.Services
     public class CityService
     {
         private readonly CityRepo _cityRepo;
+        private readonly MapService _mapService;
 
-        public CityService(CityRepo cityRepo)
+        public CityService(CityRepo cityRepo, MapService mapService)
         {
             _cityRepo = cityRepo;
+            _mapService = mapService;
         }
 
         public List<CityDto> GetAll()
@@ -19,45 +21,26 @@ namespace HotelsApp.Services
             List<CityDto> citiesDto = new List<CityDto>();
             List<City> cities = _cityRepo.GetAll();
 
-            cities.ForEach(city => citiesDto.Add(new CityDto()
-            {
-                Id = city.Id,
-                Name = city.Name
-            }
-            ));
+            cities.ForEach(city => citiesDto.Add(_mapService.CityToDto(city)));
 
             return citiesDto;
         }
 
         public CityDto GetSingle(int id)
         {
-            City city = _cityRepo.GetSingle(id);
-
-            return new CityDto()
-            {
-                Id = city.Id,
-                Name = city.Name
-            };
+            return _mapService.CityToDto(_cityRepo.GetSingle(id));
         }
 
         public void Create(CityDto city)
         {
-            _cityRepo.Add(new City()
-            {
-                Id = city.Id,
-                Name = city.Name
-            });
+            _cityRepo.Add(_mapService.DtoToCity(city));
 
             _cityRepo.SaveChanges();
         }
 
         public void Edit(CityDto city)
         {
-            _cityRepo.Update(new City()
-            {
-                Id = city.Id,
-                Name = city.Name
-            });
+            _cityRepo.Update(_mapService.DtoToCity(city));
 
             _cityRepo.SaveChanges();
         }

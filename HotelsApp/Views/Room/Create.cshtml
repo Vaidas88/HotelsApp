@@ -1,0 +1,31 @@
+﻿@using HotelsApp.Dtos
+@model RoomDto
+
+@if (@ViewBag.Error != "")
+{
+    <div class="p-3 mb-2 bg-danger text-white">
+        <h3>@ViewBag.Error</h3>
+    </div>
+}
+
+@using (Html.BeginForm("Create", "Room", FormMethod.Post))
+{
+    <div class="mb-3 col-5">
+        @Html.LabelFor(room => room.RoomNumber, new {@class = "form-label"})
+        @Html.TextBoxFor(room => room.RoomNumber, new {@class = "form-control"})
+        @Html.ValidationMessageFor(room => room.RoomNumber)
+    </div>
+    <div class="mb-3 col-5">
+        @Html.LabelFor(room => room.Floor, new {@class = "form-label"})
+        @Html.TextBoxFor(room => room.Floor, new {@class = "form-control"})
+        @Html.ValidationMessageFor(room => room.Floor)
+    </div>
+    <div class="mb-3 col-5">
+        @Html.LabelFor(room => room.Hotel.Id, new {@class = "form-label"})
+        @Html.DropDownListFor(room => room.Hotel.Id, new SelectList(@Model.AvailableHotels,"Id", "Name"), new {@class = "form-control"})
+        @Html.ValidationMessageFor(room => room.Hotel)
+    </div>
+    <div class="mb-3 col-5">
+        <input type="submit" class="btn btn-primary" value="Create" />
+    </div>
+}

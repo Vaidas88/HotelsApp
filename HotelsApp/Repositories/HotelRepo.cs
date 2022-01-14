@@ -17,6 +17,11 @@ namespace HotelsApp.Repositories
             return _dbSet.Include(c => c.City).Include(r => r.Rooms).ToList();
         }
 
+        public List<Hotel> GetAvailable()
+        {
+            return _dbSet.Include(r => r.Rooms).Where(r => r.Rooms.Count < r.MaxRooms + 1).ToList();
+        }
+
         public override Hotel GetSingle(int id)
         {
             return _dbSet

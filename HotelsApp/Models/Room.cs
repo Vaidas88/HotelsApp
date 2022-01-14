@@ -10,6 +10,8 @@ namespace HotelsApp.Models
 
         public Hotel Hotel { get; set; }
 
+        public int HotelId { get; set; }
+
         public List<Cleaner> Cleaners { get; set; }
 
         public bool IsBooked { get; set; }
