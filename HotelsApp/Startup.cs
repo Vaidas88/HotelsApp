@@ -38,6 +38,7 @@ namespace HotelsApp
             services.AddTransient<CityService>();
             services.AddTransient<HotelService>();
             services.AddTransient<RoomService>();
+            services.AddTransient<CleanerService>();
 
             services.AddControllersWithViews();
         }

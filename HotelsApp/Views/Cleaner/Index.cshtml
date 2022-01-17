@@ -1,0 +1,34 @@
+﻿@using HotelsApp.Dtos
+@model List<CleanerDto>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>City</th>
+            <th>Has rooms to clean?</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cleaner in @Model)
+        {
+            <tr>
+                <td>@cleaner.Id</td>
+                <td>@cleaner.FirstName</td>
+                <td>@cleaner.LastName</td>
+                <td>@cleaner.City.Name</td>
+                <td>@cleaner.Rooms.Count</td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Cleaner", new {id = cleaner.Id}, new {@class = "btn btn-primary"})
+                    @Html.ActionLink("Edit", "Edit", "Cleaner", new {id = cleaner.Id}, new {@class = "btn btn-success"})
+                    @Html.ActionLink("Delete", "Delete", "Cleaner", new {id = cleaner.Id}, new {@class = "btn btn-danger"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Create", "Create", "Cleaner", new {}, new {@class = "btn btn-primary"})

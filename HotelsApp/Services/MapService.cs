@@ -52,6 +52,7 @@ namespace HotelsApp.Services
                 FirstName = cleaner.FirstName,
                 LastName = cleaner.LastName,
                 City = cleaner.City,
+                CityId = cleaner.CityId,
                 Rooms = cleaner.Rooms
             };
         }
@@ -127,7 +128,7 @@ namespace HotelsApp.Services
                 Id = cleaner.Id,
                 FirstName = cleaner.FirstName,
                 LastName = cleaner.LastName,
-                City = cleaner.City,
+                CityId = cleaner.City.Id,
                 Rooms = cleaner.Rooms
             };
         }

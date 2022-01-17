@@ -11,6 +11,10 @@ namespace HotelsApp.Dtos
 
         public City City { get; set; }
 
+        public int CityId { get; set; }
+
         public List<Room> Rooms { get; set; }
+
+        public List<CityDto> AvailableCities { get; set; }
     }
 }

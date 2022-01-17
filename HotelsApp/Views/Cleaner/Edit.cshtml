@@ -1,0 +1,31 @@
+﻿@using HotelsApp.Dtos
+@model CleanerDto
+
+@if (@ViewBag.Error != "")
+{
+    <div class="p-3 mb-2 bg-danger text-white">
+        <h3>@ViewBag.Error</h3>
+    </div>
+}
+
+@using (Html.BeginForm("Edit", "Cleaner", FormMethod.Post))
+{
+    <div class="mb-3 col-5">
+        @Html.LabelFor(cleaner => cleaner.FirstName, new {@class = "form-label"})
+        @Html.TextBoxFor(cleaner => cleaner.FirstName, new {@class = "form-control"})
+        @Html.ValidationMessageFor(cleaner => cleaner.FirstName)
+    </div>
+    <div class="mb-3 col-5">
+        @Html.LabelFor(cleaner => cleaner.LastName, new {@class = "form-label"})
+        @Html.TextBoxFor(cleaner => cleaner.LastName, new {@class = "form-control"})
+        @Html.ValidationMessageFor(cleaner => cleaner.LastName)
+    </div>
+    <div class="mb-3 col-5">
+        @Html.LabelFor(cleaner => cleaner.City.Id, new {@class = "form-label"})
+        @Html.DropDownListFor(cleaner => cleaner.City.Id, new SelectList(@Model.AvailableCities,"Id", "Name"), new {@class = "form-control"})
+        @Html.ValidationMessageFor(cleaner => cleaner.City)
+    </div>
+    <div class="mb-3 col-5">
+        <input type="submit" class="btn btn-primary" value="Edit" />
+    </div>
+}
